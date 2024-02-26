@@ -1,83 +1,58 @@
 # empty list to store names
 opp_names = []
-yourScore = 0
-yourFinalScore = 0
-oppScore = 0
-oppFinalScore = 0
-
-ask1 = True
-ask2 = True
+# variables to calculate scores
+your_final_score = 0
+opp_final_score = 0
+# greeting
 print("Hello, welcome to the tournament.")
-
-
 # while loop to continue to ask for team name that isnt blank
-while ask1 == True:
-    tname = input("Please enter the name of the opposing team. ").lower()
+ask_1 = True
+while ask_1 == True:
+    team_name = input("Please enter the name of the opposing team. ").lower()
     # error catching - integer and blanks
     try:
-        int(tname)
+        int(team_name)
         print("Please try again.")
     except ValueError:
         pass
-        if tname.strip(" ") == "":
+        # check for blank
+        if team_name.strip(" ") == "":
             print("Please try again.")
+        # stop loop when "done" entered
+        elif team_name.lower() == "done":
+            ask_1 = False
         else:
-
-            ask1 = False
-
-
-
-        """ we want names of the teams, not their members silly.
-            # while loop to ask for opposition's names value (error catching)
-            while ask2 == True:
-                name = input("Please enter the names of the opposing team's members. ")
-                try:
-                    work = int(name)
-                    print("Please enter a valid name.")
-                except ValueError:
-                    pass
-                    if name.strip(" ") == "":
-                        print("Please try again.")
-                    elif name.lower() == "done":
-                        ask2 = False
-                    else:
-                        # adding names
-                        name = name.capitalize()
-                        opp_names.append(name)
-"""
-# getting score for your team
-result1 = int(input("Please enter the results of your team. "))
-while ask2 == True:
-    try:
-        int(result1)
-        yourScore = yourScore + result1
-        if result1 == "stop":
-            ask2 = False
-        else:
-            result2 = input("Please enter the results of the opposing team. ")
-            # getting score of opposing team
-            try:
-                int(result2)
-                oppScore = oppScore + result2
-            except:
+            # adding names
+            team_name = team_name.capitalize()
+            opp_names.append(team_name)
+ask_2 = True
+while ask_2 == True:
+    for result_2 in opp_names:
+        # getting score for your team
+        your_score = input("Please enter the result of your team. ")
+        try:
+            int(your_score)
+            if your_score.strip(" ") == "":
                 print("Please try again.")
-    except:
-        print("Please try again.")
+            else:
+                opp_score = input("Please enter the result of the opposing team. ")
+                try:
+                    int(opp_score)
+                    if opp_score.strip(" ") == "":
+                        print("Please try again.")
+                    elif your_score > opp_score:
+                        your_final_score = your_final_score + 3
+                    elif your_score == opp_score:
+                        your_final_score = your_final_score + 2
+                    else:
+                        your_final_score = your_final_score + 1
+                    ask_2 = False
+                except:
+                    print("Please try again.")
+                    ask_2 = True
+        except:
+            print("Please try again.")
+            ask_2 = True
 
-# prints statement
-try:
-    if yourScore > oppScore:
-        yourFinalScore = yourFinalScore + 3
-        print(
-            f"Your team won. Your team gained {yourFinalScore} points, and the opposing team gained {oppFinalScore} points."
-        )
-    elif yourScore == oppScore:
-        print(f"Your team tied with {tname.capitalize()} at {yourFinalScore} points.")
-    else:
-        print(
-            f"Your team lost. Your team gained {yourFinalScore} points, and the opposing team gained {oppFinalScore} points."
-        )
-
-except:
-    ask1 = True
-    ask2 = True
+# prints result
+print(f"Your team has won {your_final_score} points in the tournament.")
