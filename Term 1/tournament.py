@@ -3,6 +3,9 @@ opp_names = []
 # variables to calculate scores
 your_final_score = 0
 opp_final_score = 0
+# variables to index
+ind = 0
+ind_2 = 0
 # greeting
 print("Hello, welcome to the tournament.")
 # while loop to continue to ask for team name that isnt blank
@@ -27,32 +30,49 @@ while ask_1 == True:
             opp_names.append(team_name)
 ask_2 = True
 while ask_2 == True:
-    for result_2 in opp_names:
+    try:
         # getting score for your team
-        your_score = input("Please enter the result of your team. ")
-        try:
-            int(your_score)
-            if your_score.strip(" ") == "":
-                print("Please try again.")
-            else:
-                opp_score = input("Please enter the result of the opposing team. ")
-                try:
-                    int(opp_score)
-                    if opp_score.strip(" ") == "":
-                        print("Please try again.")
-                    elif your_score > opp_score:
-                        your_final_score = your_final_score + 3
-                    elif your_score == opp_score:
-                        your_final_score = your_final_score + 2
-                    else:
-                        your_final_score = your_final_score + 1
-                    ask_2 = False
-                except:
-                    print("Please try again.")
-                    ask_2 = True
-        except:
+        your_score = input(
+            f"Please enter the result of your team against {opp_names[ind]}. "
+        )
+        if str(your_score).strip(" ") == "":
             print("Please try again.")
-            ask_2 = True
+        elif int(your_score) < 0:
+            print("Please try again.")
+        else:
+            int(your_score)
+            try:
+                # getting score of opposite team
+                opp_score = input(f"Please enter the result of {opp_names[ind_2]}. ")
+                # test for blanks or negative points
+                if str(opp_score).strip(" ") == "":
+                    print("Please try again.")
+                elif int(opp_score) < 0:
+                    print("Please try again.")
+                # calculating points
+                elif int(your_score) > int(opp_score):
+                    your_final_score = your_final_score + 3
+                    ind = ind + 1
+                    ind_2 = ind_2 + 1
+                elif int(your_score) == int(opp_score):
+                    your_final_score = your_final_score + 2
+                    ind = ind + 1
+                    ind_2 = ind_2 + 1
+                elif int(your_score) < int(opp_score):
+                    your_final_score = your_final_score + 1
+                    ind = ind + 1
+                    ind_2 = ind_2 + 1
+            except ValueError:
+                print("Please try again.")
+    except ValueError:
+        print("Please try again.")
+    except IndexError:
+        ask_2 = False
 
 # prints result
-print(f"Your team has won {your_final_score} points in the tournament.")
+if your_final_score > len(opp_names):
+    print(f"Wahoo! Your team has won {your_final_score} points in the tournament.")
+elif your_final_score == len(opp_names):
+    print(
+        f"Try better. Your team has won {len(opp_names)} points in the tournament and it's time for you to consider training."
+    )
