@@ -15,12 +15,12 @@ while ask_1 == True:
     # error catching - integer and blanks
     try:
         int(team_name)
-        print("Please try again.")
+        print("Please try again and do not use integers.")
     except ValueError:
         pass
         # check for blank
         if team_name.strip(" ") == "":
-            print("Please try again.")
+            print("Please try again, blank names are not supported.")
         # stop loop when "done" entered
         elif team_name.lower() == "done":
             ask_1 = False
@@ -36,9 +36,9 @@ while ask_2 == True:
             f"Please enter the result of your team against {opp_names[ind]}. "
         )
         if str(your_score).strip(" ") == "":
-            print("Please try again.")
+            print("Please try again, blank scores are not supported.")
         elif int(your_score) < 0:
-            print("Please try again.")
+            print("Please try again, negative scores are not possible.")
         else:
             int(your_score)
             try:
@@ -46,9 +46,9 @@ while ask_2 == True:
                 opp_score = input(f"Please enter the result of {opp_names[ind_2]}. ")
                 # test for blanks or negative points
                 if str(opp_score).strip(" ") == "":
-                    print("Please try again.")
+                    print("Please try again, blank scores are not supported.")
                 elif int(opp_score) < 0:
-                    print("Please try again.")
+                    print("Please try again, negative score are not possible.")
                 # calculating points
                 elif int(your_score) > int(opp_score):
                     your_final_score = your_final_score + 3
@@ -63,9 +63,9 @@ while ask_2 == True:
                     ind = ind + 1
                     ind_2 = ind_2 + 1
             except ValueError:
-                print("Please try again.")
+                print("Please try again and use integers.")
     except ValueError:
-        print("Please try again.")
+        print("Please try again and use integers.")
     except IndexError:
         ask_2 = False
 
