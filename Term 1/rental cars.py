@@ -49,8 +49,7 @@ The vehicles are:""")
                         print("")
                     else:
                         if "- Unavailable" in (cars[preferred_car-1]):
-                            print("** This vehicle is already booked. Please choose another **")
-                            print("")
+                            print("""** This vehicle is already booked. Please choose another **""")
                         else:
                             cars[preferred_car-1].append("- Unavailable")
                             print(f"You have booked the {cars[preferred_car-1][2]}")
