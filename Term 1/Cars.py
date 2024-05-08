@@ -8,7 +8,7 @@ connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
 # run a query
-cursor.execute("SELECT * FROM car LIMIT 10")
+cursor.execute("SELECT * FROM car")
 # get results
 cars = cursor.fetchall()
 
@@ -17,4 +17,4 @@ print("="*38)
 
 # print results
 for car in cars:
-    print(f"{car[0]}")
+    print(f"{car[0]} ")
